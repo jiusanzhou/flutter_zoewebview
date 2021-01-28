@@ -66,13 +66,51 @@ class _MyHomePageState extends State<MyHomePage> {
           });
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          _controller.reload();
-        },
-        tooltip: '控制器',
-        child: Icon(Icons.add), 
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ControllBar(_controller), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}
+
+class ControllBar extends StatefulWidget {
+
+  final ZoeWebviewController _controller;
+
+  ControllBar(this._controller) : super();
+
+  @override
+  _ControllBarState createState() => _ControllBarState();
+}
+
+class _ControllBarState extends State<ControllBar> {
+
+  bool _extend = true;
+  bool _loading = false;
+
+  double size = 58;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: _extend ? double.infinity : size,
+      height: size,
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).primaryColor,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Row(
+        children: [
+          Expanded(child: Container()),
+          FloatingActionButton(
+            onPressed: () {
+              // TODO: if (_loading) widget._controller.stop()
+              widget._controller.reload();
+            },
+            child: Icon(_loading ? Icons.close : Icons.refresh),
+          )
+        ],
+      ),
     );
   }
 }
