@@ -92,6 +92,8 @@ class _ZoeWebviewState extends State<ZoeWebview> {
           initialUrl: widget.initialUrl, initialHeaders: widget.initialHeaders, userAgent: widget.userAgent,
           onWebViewCreated: widget.onWebViewCreated, onProgressChanged: widget.onProgressChanged,
           onLoadStart: widget.onLoadStart, onLoadStop: widget.onLoadStop, onLoadError: widget.onLoadError,
+          onAjaxProgress: widget.onAjaxProgress, onAjaxReadyStateChange: widget.onAjaxReadyStateChange, onConsoleMessage: widget.onConsoleMessage,
+          shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
         );
       case WebviewType.OfficialWebview:
         return ErrorBlock(title: "unimplement");
