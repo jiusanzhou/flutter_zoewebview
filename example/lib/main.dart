@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(loading?"加载中":title),
+          title: Text(loading?"加载中...":title),
           centerTitle: true,
         ),
         body: ZoeWebview(
