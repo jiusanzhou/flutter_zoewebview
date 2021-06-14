@@ -149,4 +149,14 @@ class InappWebviewControllerZoe extends ZoeWebviewController {
   Future evaluateJavascript(String code) {
     return _controller.evaluateJavascript(source: code);
   }
+
+  @override
+  Future<bool> canGoBack() {
+    return _controller.canGoBack();
+  }
+
+  @override
+  Future<void> goBack() async {
+    return _controller.goBack();
+  }
 }

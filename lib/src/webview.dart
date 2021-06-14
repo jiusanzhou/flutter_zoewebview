@@ -89,12 +89,9 @@ class _ZoeWebviewState extends State<ZoeWebview> {
     switch (widget.webviewType) {
       case WebviewType.InappWebview:
         return ZoeInappWebview(
-          initialUrl: widget.initialUrl,
-          onWebViewCreated: widget.onWebViewCreated,
-          onLoadStart: widget.onLoadStart,
-          onProgressChanged: widget.onProgressChanged,
-          onLoadStop: widget.onLoadStop,
-          onLoadError: widget.onLoadError,
+          initialUrl: widget.initialUrl, initialHeaders: widget.initialHeaders, userAgent: widget.userAgent,
+          onWebViewCreated: widget.onWebViewCreated, onProgressChanged: widget.onProgressChanged,
+          onLoadStart: widget.onLoadStart, onLoadStop: widget.onLoadStop, onLoadError: widget.onLoadError,
         );
       case WebviewType.OfficialWebview:
         return ErrorBlock(title: "unimplement");

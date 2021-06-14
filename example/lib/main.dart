@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoewebview/provider.dart';
-import 'package:flutter_zoewebview/webview.dart';
+import 'package:flutter_zoewebview/flutter_zoewebview.dart';
 
 void main() {
   runApp(MyApp());
@@ -39,35 +38,42 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: AppBar()
-      ),
-      body: ZoeWebview(
-        initialUrl: "https://m.baidu.com",
-        onWebViewCreated: (c) {
-          _controller = c;
-        },
-        onLoadStart: (c, _) {
-          setState(() {
-            loading = true;
-            title = _;
-          });
-        },
-        onLoadStop: (c, _) {
-          setState(() {
-            loading = false;
-          });
-          _controller.getTitle().then((value) {
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(loading?"加载中":title),
+          centerTitle: true,
+        ),
+        body: ZoeWebview(
+          initialUrl: "https://main.m.taobao.com",
+          onWebViewCreated: (c) => _controller = c,
+          onLoadStart: (c, _) {
             setState(() {
-              title = value;
+              loading = true;
+              title = _;
             });
-          });
-        },
+          },
+          onLoadStop: (c, _) {
+            setState(() {
+              loading = false;
+            });
+            _controller.getTitle().then((value) {
+              setState(() {
+                title = value;
+              });
+            });
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton: ControllBar(_controller), // This trailing comma makes auto-formatting nicer for build methods.
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ControllBar(_controller), // This trailing comma makes auto-formatting nicer for build methods.
+      onWillPop: () async {
+        if (await _controller.canGoBack()) {
+          _controller.goBack();
+          return Future.value(false);
+        }
+        return Future.value(true);
+      },
     );
   }
 }
