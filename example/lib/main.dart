@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
           onLoadStart: (c, _) {
             setState(() {
               loading = true;
-              title = _;
+              title = _.toString();
             });
           },
           onLoadStop: (c, _) {

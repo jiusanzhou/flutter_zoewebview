@@ -41,13 +41,13 @@ class ZoeWebview extends StatefulWidget {
   final void Function(ZoeWebviewController controller) onWebViewCreated;
 
   ///Event fired when the [WebView] starts to load an [url].
-  final void Function(ZoeWebviewController controller, String url) onLoadStart;
+  final void Function(ZoeWebviewController controller, Uri uri) onLoadStart;
 
   ///Event fired when the [WebView] finishes loading an [url].
-  final void Function(ZoeWebviewController controller, String url) onLoadStop;
+  final void Function(ZoeWebviewController controller, Uri uri) onLoadStop;
 
   ///Event fired when the [WebView] encounters an error loading an [url].
-  final void Function(ZoeWebviewController controller, String url, int code, String message) onLoadError;
+  final void Function(ZoeWebviewController controller, Uri uri, int code, String message) onLoadError;
 
   ///Event fired when the current [progress] of loading a page is changed.
   final void Function(ZoeWebviewController controller, int progress) onProgressChanged;

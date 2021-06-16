@@ -37,13 +37,13 @@ class ZoeInappWebview extends StatefulWidget {
   final void Function(ZoeWebviewController controller) onWebViewCreated;
 
   ///Event fired when the [WebView] starts to load an [url].
-  final void Function(ZoeWebviewController controller, String url) onLoadStart;
+  final void Function(ZoeWebviewController controller, Uri ui) onLoadStart;
 
   ///Event fired when the [WebView] finishes loading an [url].
-  final void Function(ZoeWebviewController controller, String url) onLoadStop;
+  final void Function(ZoeWebviewController controller, Uri uri) onLoadStop;
 
   ///Event fired when the [WebView] encounters an error loading an [url].
-  final void Function(ZoeWebviewController controller, String url, int code, String message) onLoadError;
+  final void Function(ZoeWebviewController controller, Uri uri, int code, String message) onLoadError;
 
   ///Event fired when the current [progress] of loading a page is changed.
   final void Function(ZoeWebviewController controller, int progress) onProgressChanged;
@@ -77,7 +77,7 @@ class _ZoeInappWebviewState extends State<ZoeInappWebview> {
   @override
   Widget build(BuildContext context) {
     return InAppWebView(
-      initialUrl: widget.initialUrl,
+      initialUrlRequest: URLRequest(url: Uri.parse(widget.initialUrl)),
       onWebViewCreated: _onWebViewCreated,
       onLoadStart: _onLoadStart,
       onLoadStop: _onLoadStop,
@@ -91,16 +91,16 @@ class _ZoeInappWebviewState extends State<ZoeInappWebview> {
     widget.onWebViewCreated?.call(_controller);
   }
 
-  void _onLoadStart(InAppWebViewController controller, String url) {
-    widget.onLoadStart?.call(_controller, url);
+  void _onLoadStart(InAppWebViewController controller, Uri uri) {
+    widget.onLoadStart?.call(_controller, uri);
   }
 
-  void _onLoadStop(InAppWebViewController controller, String url) {
-    widget.onLoadStop?.call(_controller, url);
+  void _onLoadStop(InAppWebViewController controller, Uri uri) {
+    widget.onLoadStop?.call(_controller, uri);
   }
 
-  void _onLoadError(InAppWebViewController controller, String url, int code, String message) {
-    widget.onLoadError?.call(_controller, url, code, message);
+  void _onLoadError(InAppWebViewController controller, Uri uri, int code, String message) {
+    widget.onLoadError?.call(_controller, uri, code, message);
   }
 
   void _onProgressChanged(InAppWebViewController controller, int progress) {
@@ -117,7 +117,7 @@ class InappWebviewControllerZoe extends ZoeWebviewController {
 
   @override
   Future<String> getUrl() {
-    return _controller.getUrl();
+    return _controller.getUrl().then((uri) => uri.toString());
   }
 
   @override
@@ -137,7 +137,7 @@ class InappWebviewControllerZoe extends ZoeWebviewController {
 
   @override
   Future<void> loadUrl({String url, Map<String, String> headers = const {}}) {
-    return _controller.loadUrl(url: url, headers: headers);
+    return _controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url), headers: headers));
   }
 
   @override
