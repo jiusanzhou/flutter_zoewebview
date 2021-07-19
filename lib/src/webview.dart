@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_zoewebview/flutter_zoewebview.dart';
+import 'package:flutter_zoewebview/src/provider/pluginwebview.dart';
 
 ///ZoeWebview is a custom webview to wraper all kinds
 ///of webview we offered by plugins.
@@ -98,7 +99,13 @@ class _ZoeWebviewState extends State<ZoeWebview> {
       case WebviewType.OfficialWebview:
         return ErrorBlock(title: "unimplement");
       case WebviewType.PluginWebview:
-        return ErrorBlock(title: "unimplement");
+        return ZoePluginWebview(
+          initialUrl: widget.initialUrl, initialHeaders: widget.initialHeaders, userAgent: widget.userAgent,
+          onWebViewCreated: widget.onWebViewCreated, onProgressChanged: widget.onProgressChanged,
+          onLoadStart: widget.onLoadStart, onLoadStop: widget.onLoadStop, onLoadError: widget.onLoadError,
+          onAjaxProgress: widget.onAjaxProgress, onAjaxReadyStateChange: widget.onAjaxReadyStateChange, onConsoleMessage: widget.onConsoleMessage,
+          shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
+        );
       default:
         return ErrorBlock(title: "unknown webview type: ${widget.webviewType}");
     }

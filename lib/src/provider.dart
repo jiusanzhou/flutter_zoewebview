@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_zoewebview/flutter_zoewebview.dart';
 
 ///Event fired when the [WebView] is created.
 typedef OnWebViewCreatedCallback = void Function(ZoeWebviewController controller);
@@ -95,6 +94,9 @@ abstract class ZoeWebviewController {
   final String _jsTitle = "document.title";
   final String _jsUrl = "document.location.href";
   final String _jsCallReload = "document.location.reload()";
+  final String _jsHtml = "window.document.getElementsByTagName('html')[0].outerHTML;";
+
+  // ZoeWebviewController(this._widget);
 
   ZoeWebviewController(this._widget);
 
@@ -115,7 +117,8 @@ abstract class ZoeWebviewController {
 
   ///Gets the content html of the page. It first tries to get the content through javascript.
   Future<String> getHtml() async {
-    return Future.error("unimplement");
+    /// use eval js to get html
+    return evaluateJavascript(_jsHtml);
   }
 
   ///Loads the given [url] with optional [headers] specified as a map from name to value.
