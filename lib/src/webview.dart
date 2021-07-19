@@ -9,20 +9,15 @@ class ZoeWebview extends StatefulWidget {
   ZoeWebview({
     Key key,
     this.webviewType = WebviewType.InappWebview,
-
     this.initialUrl = "about:blank",
     this.initialHeaders,
     this.userAgent,
-
     this.onWebViewCreated,
-
     this.onLoadStart,
     this.onProgressChanged,
     this.onLoadStop,
     this.onLoadError,
-
     this.onConsoleMessage,
-
     this.shouldInterceptAjaxRequest,
     this.onAjaxReadyStateChange,
     this.onAjaxProgress,
@@ -32,11 +27,10 @@ class ZoeWebview extends StatefulWidget {
   _ZoeWebviewState createState() => _ZoeWebviewState();
 
   final WebviewType webviewType;
-  
+
   final String initialUrl;
   final Map<String, String> initialHeaders;
   final String userAgent;
-
 
   ///Event fired when the [WebView] is created.
   final void Function(ZoeWebviewController controller) onWebViewCreated;
@@ -48,29 +42,38 @@ class ZoeWebview extends StatefulWidget {
   final void Function(ZoeWebviewController controller, Uri uri) onLoadStop;
 
   ///Event fired when the [WebView] encounters an error loading an [url].
-  final void Function(ZoeWebviewController controller, Uri uri, int code, String message) onLoadError;
+  final void Function(
+          ZoeWebviewController controller, Uri uri, int code, String message)
+      onLoadError;
 
   ///Event fired when the current [progress] of loading a page is changed.
-  final void Function(ZoeWebviewController controller, int progress) onProgressChanged;
+  final void Function(ZoeWebviewController controller, int progress)
+      onProgressChanged;
 
   ///Event fired when the [WebView] receives a [ConsoleMessage].
-  final void Function(ZoeWebviewController controller, int level, String msg)onConsoleMessage;
+  final void Function(ZoeWebviewController controller, int level, String msg)
+      onConsoleMessage;
 
   ///Event fired when an `XMLHttpRequest` is sent to a server.
   ///It gives the host application a chance to take control over the request before sending it.
-  final Future<Map<String, dynamic>> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) shouldInterceptAjaxRequest;
+  final Future<Map<String, dynamic>> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      shouldInterceptAjaxRequest;
 
   ///Event fired whenever the `readyState` attribute of an `XMLHttpRequest` changes.
   ///It gives the host application a chance to abort the request.
-  final Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) onAjaxReadyStateChange;
+  final Future<int> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      onAjaxReadyStateChange;
 
   ///Event fired as an `XMLHttpRequest` progress.
   ///It gives the host application a chance to abort the request.
-  final Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) onAjaxProgress;
+  final Future<int> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      onAjaxProgress;
 }
 
 class _ZoeWebviewState extends State<ZoeWebview> {
-
   @override
   void initState() {
     super.initState();
@@ -90,20 +93,34 @@ class _ZoeWebviewState extends State<ZoeWebview> {
     switch (widget.webviewType) {
       case WebviewType.InappWebview:
         return ZoeInappWebview(
-          initialUrl: widget.initialUrl, initialHeaders: widget.initialHeaders, userAgent: widget.userAgent,
-          onWebViewCreated: widget.onWebViewCreated, onProgressChanged: widget.onProgressChanged,
-          onLoadStart: widget.onLoadStart, onLoadStop: widget.onLoadStop, onLoadError: widget.onLoadError,
-          onAjaxProgress: widget.onAjaxProgress, onAjaxReadyStateChange: widget.onAjaxReadyStateChange, onConsoleMessage: widget.onConsoleMessage,
+          initialUrl: widget.initialUrl,
+          initialHeaders: widget.initialHeaders,
+          userAgent: widget.userAgent,
+          onWebViewCreated: widget.onWebViewCreated,
+          onProgressChanged: widget.onProgressChanged,
+          onLoadStart: widget.onLoadStart,
+          onLoadStop: widget.onLoadStop,
+          onLoadError: widget.onLoadError,
+          onAjaxProgress: widget.onAjaxProgress,
+          onAjaxReadyStateChange: widget.onAjaxReadyStateChange,
+          onConsoleMessage: widget.onConsoleMessage,
           shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
         );
       case WebviewType.OfficialWebview:
         return ErrorBlock(title: "unimplement");
       case WebviewType.PluginWebview:
         return ZoePluginWebview(
-          initialUrl: widget.initialUrl, initialHeaders: widget.initialHeaders, userAgent: widget.userAgent,
-          onWebViewCreated: widget.onWebViewCreated, onProgressChanged: widget.onProgressChanged,
-          onLoadStart: widget.onLoadStart, onLoadStop: widget.onLoadStop, onLoadError: widget.onLoadError,
-          onAjaxProgress: widget.onAjaxProgress, onAjaxReadyStateChange: widget.onAjaxReadyStateChange, onConsoleMessage: widget.onConsoleMessage,
+          initialUrl: widget.initialUrl,
+          initialHeaders: widget.initialHeaders,
+          userAgent: widget.userAgent,
+          onWebViewCreated: widget.onWebViewCreated,
+          onProgressChanged: widget.onProgressChanged,
+          onLoadStart: widget.onLoadStart,
+          onLoadStop: widget.onLoadStop,
+          onLoadError: widget.onLoadError,
+          onAjaxProgress: widget.onAjaxProgress,
+          onAjaxReadyStateChange: widget.onAjaxReadyStateChange,
+          onConsoleMessage: widget.onConsoleMessage,
           shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
         );
       default:

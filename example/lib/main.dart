@@ -32,7 +32,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int process;
   String title;
-  bool loading  = false;
+  bool loading = false;
 
   ZoeWebviewController _controller;
 
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(loading?"加载中...":title),
+          title: Text(loading ? "加载中..." : title),
           centerTitle: true,
         ),
         body: ZoeWebview(
@@ -79,7 +79,6 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ControllBar extends StatefulWidget {
-
   final ZoeWebviewController _controller;
 
   ControllBar(this._controller) : super();
@@ -89,7 +88,6 @@ class ControllBar extends StatefulWidget {
 }
 
 class _ControllBarState extends State<ControllBar> {
-
   bool _extend = true;
   bool _loading = false;
 

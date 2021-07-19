@@ -5,20 +5,15 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 class ZoeInappWebview extends StatefulWidget {
   ZoeInappWebview({
     Key key,
-
     this.initialUrl,
     this.initialHeaders,
     this.userAgent,
-
     this.onWebViewCreated,
-
     this.onLoadStart,
     this.onProgressChanged,
     this.onLoadStop,
     this.onLoadError,
-
     this.onConsoleMessage,
-
     this.shouldInterceptAjaxRequest,
     this.onAjaxReadyStateChange,
     this.onAjaxProgress,
@@ -27,11 +22,9 @@ class ZoeInappWebview extends StatefulWidget {
   @override
   _ZoeInappWebviewState createState() => _ZoeInappWebviewState();
 
-
   final String initialUrl;
   final Map<String, String> initialHeaders;
   final String userAgent;
-
 
   ///Event fired when the [WebView] is created.
   final void Function(ZoeWebviewController controller) onWebViewCreated;
@@ -43,29 +36,38 @@ class ZoeInappWebview extends StatefulWidget {
   final void Function(ZoeWebviewController controller, Uri uri) onLoadStop;
 
   ///Event fired when the [WebView] encounters an error loading an [url].
-  final void Function(ZoeWebviewController controller, Uri uri, int code, String message) onLoadError;
+  final void Function(
+          ZoeWebviewController controller, Uri uri, int code, String message)
+      onLoadError;
 
   ///Event fired when the current [progress] of loading a page is changed.
-  final void Function(ZoeWebviewController controller, int progress) onProgressChanged;
+  final void Function(ZoeWebviewController controller, int progress)
+      onProgressChanged;
 
   ///Event fired when the [WebView] receives a [ConsoleMessage].
-  final void Function(ZoeWebviewController controller, int level, String msg)onConsoleMessage;
+  final void Function(ZoeWebviewController controller, int level, String msg)
+      onConsoleMessage;
 
   ///Event fired when an `XMLHttpRequest` is sent to a server.
   ///It gives the host application a chance to take control over the request before sending it.
-  final Future<Map<String, dynamic>> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) shouldInterceptAjaxRequest;
+  final Future<Map<String, dynamic>> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      shouldInterceptAjaxRequest;
 
   ///Event fired whenever the `readyState` attribute of an `XMLHttpRequest` changes.
   ///It gives the host application a chance to abort the request.
-  final Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) onAjaxReadyStateChange;
+  final Future<int> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      onAjaxReadyStateChange;
 
   ///Event fired as an `XMLHttpRequest` progress.
   ///It gives the host application a chance to abort the request.
-  final Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest) onAjaxProgress;
+  final Future<int> Function(
+          ZoeWebviewController controller, Map<String, dynamic> ajaxRequest)
+      onAjaxProgress;
 }
 
 class _ZoeInappWebviewState extends State<ZoeInappWebview> {
-
   InappWebviewControllerZoe _controller;
 
   @override
@@ -99,7 +101,8 @@ class _ZoeInappWebviewState extends State<ZoeInappWebview> {
     widget.onLoadStop?.call(_controller, uri);
   }
 
-  void _onLoadError(InAppWebViewController controller, Uri uri, int code, String message) {
+  void _onLoadError(
+      InAppWebViewController controller, Uri uri, int code, String message) {
     widget.onLoadError?.call(_controller, uri, code, message);
   }
 
@@ -137,7 +140,8 @@ class InappWebviewControllerZoe extends ZoeWebviewController {
 
   @override
   Future<void> loadUrl({String url, Map<String, String> headers = const {}}) {
-    return _controller.loadUrl(urlRequest: URLRequest(url: Uri.parse(url), headers: headers));
+    return _controller.loadUrl(
+        urlRequest: URLRequest(url: Uri.parse(url), headers: headers));
   }
 
   @override

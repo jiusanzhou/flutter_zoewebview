@@ -1,6 +1,5 @@
 library flutter_zoewebview;
 
-
 export './src/webview.dart';
 export './src/provider.dart';
 

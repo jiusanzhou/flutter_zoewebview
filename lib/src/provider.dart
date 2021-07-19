@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 
 ///Event fired when the [WebView] is created.
-typedef OnWebViewCreatedCallback = void Function(ZoeWebviewController controller);
+typedef OnWebViewCreatedCallback = void Function(
+    ZoeWebviewController controller);
 
 ///Event fired when the [WebView] starts to load an [url].
-typedef OnLoadStartCallback = void Function(ZoeWebviewController controller, String url);
+typedef OnLoadStartCallback = void Function(
+    ZoeWebviewController controller, String url);
 
 ///Event fired when the [WebView] finishes loading an [url].
-typedef OnLoadStopCallback = void Function(ZoeWebviewController controller, String url);
+typedef OnLoadStopCallback = void Function(
+    ZoeWebviewController controller, String url);
 
 ///Event fired when the [WebView] encounters an error loading an [url].
-typedef OnLoadErrorCallback = void Function(ZoeWebviewController controller, String url, int code, String message);
+typedef OnLoadErrorCallback = void Function(
+    ZoeWebviewController controller, String url, int code, String message);
 
 ///Event fired when the current [progress] of loading a page is changed.
-typedef OnProgressChangedCallback = void Function(ZoeWebviewController controller, int progress);
+typedef OnProgressChangedCallback = void Function(
+    ZoeWebviewController controller, int progress);
 
 ///Event fired when the [WebView] receives a [ConsoleMessage].
-typedef OnConsoleMessageCallback = void Function(ZoeWebviewController controller, int level, String msg);
+typedef OnConsoleMessageCallback = void Function(
+    ZoeWebviewController controller, int level, String msg);
 
 ///Event fired when an `XMLHttpRequest` is sent to a server.
 ///It gives the host application a chance to take control over the request before sending it.
-typedef ShouldInterceptAjaxRequestCallback =  Future<Map<String, dynamic>> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
+typedef ShouldInterceptAjaxRequestCallback = Future<Map<String, dynamic>>
+    Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
 
 ///Event fired whenever the `readyState` attribute of an `XMLHttpRequest` changes.
 ///It gives the host application a chance to abort the request.
-typedef OnAjaxReadyStateChangeCallback =  Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
+typedef OnAjaxReadyStateChangeCallback = Future<int> Function(
+    ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
 
 ///Event fired as an `XMLHttpRequest` progress.
 ///It gives the host application a chance to abort the request.
-typedef OnAjaxProgressCallback =  Future<int> Function(ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
+typedef OnAjaxProgressCallback = Future<int> Function(
+    ZoeWebviewController controller, Map<String, dynamic> ajaxRequest);
 
 ///WebviewType is a enum contains webview type
 ///if we implement other webview plugin.
@@ -40,53 +49,40 @@ enum WebviewType {
 }
 
 extension WebviewTypeExt on WebviewType {
-
   Widget build({
     String initialUrl,
     Map<String, String> initialHeaders,
     String userAgent,
-
     OnWebViewCreatedCallback onWebViewCreated,
-
     OnLoadStartCallback onLoadStart,
     OnProgressChangedCallback onProgressChanged,
     OnLoadStopCallback onLoadStop,
     OnLoadErrorCallback onLoadError,
-
     OnConsoleMessageCallback onConsoleMessage,
-
     ShouldInterceptAjaxRequestCallback shouldInterceptAjaxRequest,
     OnAjaxReadyStateChangeCallback onAjaxReadyStateChange,
     OnAjaxProgressCallback onAjaxProgress,
   }) {
-
-    final builders = <WebviewType, Widget Function({
+    final builders = <
+        WebviewType,
+        Widget Function({
       String initialUrl,
       Map<String, String> initialHeaders,
       String userAgent,
-
       OnWebViewCreatedCallback onWebViewCreated,
-
       OnLoadStartCallback onLoadStart,
       OnProgressChangedCallback onProgressChanged,
       OnLoadStopCallback onLoadStop,
       OnLoadErrorCallback onLoadError,
-
       OnConsoleMessageCallback onConsoleMessage,
-
       ShouldInterceptAjaxRequestCallback shouldInterceptAjaxRequest,
       OnAjaxReadyStateChangeCallback onAjaxReadyStateChange,
       OnAjaxProgressCallback onAjaxProgress,
-    })>{
-
-    };
+    })>{};
 
     return builders[this]?.call();
   }
-
 }
-
-
 
 abstract class ZoeWebviewController {
   Widget _widget;
@@ -94,7 +90,8 @@ abstract class ZoeWebviewController {
   final String _jsTitle = "document.title";
   final String _jsUrl = "document.location.href";
   final String _jsCallReload = "document.location.reload()";
-  final String _jsHtml = "window.document.getElementsByTagName('html')[0].outerHTML;";
+  final String _jsHtml =
+      "window.document.getElementsByTagName('html')[0].outerHTML;";
 
   // ZoeWebviewController(this._widget);
 
@@ -109,7 +106,7 @@ abstract class ZoeWebviewController {
   Future<String> getTitle() async {
     return evaluateJavascript(_jsTitle);
   }
-  
+
   ///Gets the progress for the current page. The progress value is between 0 and 100.
   Future<int> getProgress() async {
     return Future.error("unimplement");
