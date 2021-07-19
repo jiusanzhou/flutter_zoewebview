@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_zoewebview/flutter_zoewebview.dart';
+import 'package:flutter_zoewebview/src/provider/officialwebview.dart';
 import 'package:flutter_zoewebview/src/provider/pluginwebview.dart';
 
 ///ZoeWebview is a custom webview to wraper all kinds
@@ -107,7 +108,20 @@ class _ZoeWebviewState extends State<ZoeWebview> {
           shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
         );
       case WebviewType.OfficialWebview:
-        return ErrorBlock(title: "unimplement");
+        return ZoeOfficialWebview(
+          initialUrl: widget.initialUrl,
+          initialHeaders: widget.initialHeaders,
+          userAgent: widget.userAgent,
+          onWebViewCreated: widget.onWebViewCreated,
+          onProgressChanged: widget.onProgressChanged,
+          onLoadStart: widget.onLoadStart,
+          onLoadStop: widget.onLoadStop,
+          onLoadError: widget.onLoadError,
+          onAjaxProgress: widget.onAjaxProgress,
+          onAjaxReadyStateChange: widget.onAjaxReadyStateChange,
+          onConsoleMessage: widget.onConsoleMessage,
+          shouldInterceptAjaxRequest: widget.shouldInterceptAjaxRequest,
+        );
       case WebviewType.PluginWebview:
         return ZoePluginWebview(
           initialUrl: widget.initialUrl,
