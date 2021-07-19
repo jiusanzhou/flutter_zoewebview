@@ -1,8 +1,7 @@
 name: flutter_zoewebview
 description: A webview for all projects.
 version: 1.1.0
-author:
-homepage:
+homepage: https://labs.zoe.im/flutter_zoewebview
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
